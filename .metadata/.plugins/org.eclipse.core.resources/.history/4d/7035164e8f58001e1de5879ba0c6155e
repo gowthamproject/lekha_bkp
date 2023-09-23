@@ -1,0 +1,55 @@
+package com.wipro.lekhaclient.model;
+
+public class Location {
+	
+	private double latitude;
+	
+	private double longitude;
+	
+	private String region_state;
+	
+	private String node_id;
+	
+	private String node_name;
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getRegion_state() {
+		return region_state;
+	}
+
+	public void setRegion_state(String region_state) {
+		this.region_state = region_state;
+	}
+
+	public String getNode_id() {
+		return node_id;
+	}
+
+	public void setNode_id(int node_id) {
+		this.node_id = node_id;
+	}
+
+	public String getNode_name() {
+		return node_name;
+	}
+
+	public void setNode_name(String node_name) {
+		this.node_name = node_name;
+	}
+	
+}

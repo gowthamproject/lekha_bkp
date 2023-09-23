@@ -1,0 +1,11 @@
+package com.wipro.lekhaclient.services;
+
+import java.util.List;
+
+import com.wipro.lekhaclient.model.Location;
+
+public interface LocationIntf {
+	
+	public void pollLocationDetails(List<Location> data);
+
+}

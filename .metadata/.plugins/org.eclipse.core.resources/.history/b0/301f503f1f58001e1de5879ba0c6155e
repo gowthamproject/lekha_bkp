@@ -1,0 +1,9 @@
+package com.wipro.lekhaclient.model;
+
+public class Regions {
+	
+	private String id;
+	
+	private String name;
+
+}

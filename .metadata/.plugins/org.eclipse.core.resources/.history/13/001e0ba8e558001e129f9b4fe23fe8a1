@@ -1,0 +1,15 @@
+package com.wipro.lekhaclient.model;
+
+public class NodeInterfaceInfo {
+	
+	private String nodeinterfaceinfo;
+
+	public String getNodeinterfaceinfo() {
+		return nodeinterfaceinfo;
+	}
+
+	public void setNodeinterfaceinfo(String nodeinterfaceinfo) {
+		this.nodeinterfaceinfo = nodeinterfaceinfo;
+	}
+
+}

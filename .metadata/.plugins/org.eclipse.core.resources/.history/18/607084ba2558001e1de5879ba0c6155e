@@ -1,0 +1,53 @@
+package com.wipro.lekhaclient.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import com.wipro.lekhaclient.model.GNB;
+
+public class GNBDAO implements DAOInterface<GNB>{
+
+	@Override
+	public void insertRecords(List<GNB> listOfData) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertRecord(GNB data) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateRecord(GNB data) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<GNB> getRecordByParam(Map<String, Object> paramMap) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteRecords(List<String> params) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateOrInsertRecords(List<GNB> listOfData) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pollRecords(List<GNB> listOfData) throws SQLException, InterruptedException {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

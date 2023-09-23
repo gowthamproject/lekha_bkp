@@ -1,0 +1,5 @@
+package com.wipro.lekhaclient.dao;
+
+public class Location implements DAOInterface<Location>{
+
+}

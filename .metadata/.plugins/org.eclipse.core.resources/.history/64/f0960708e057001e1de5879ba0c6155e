@@ -1,0 +1,7 @@
+package com.wipro.lekhaclient.dao;
+
+import com.wipro.lekhaclient.model.GNB;
+
+public class GNBDAO implements DAOInterface<GNB>{
+
+}

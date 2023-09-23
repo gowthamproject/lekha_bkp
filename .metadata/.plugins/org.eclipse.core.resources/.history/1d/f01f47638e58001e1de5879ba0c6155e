@@ -1,0 +1,7 @@
+package com.wipro.lekhaclient.services;
+
+public interface LocationIntf {
+	
+	public void pollLocationDetails();
+
+}

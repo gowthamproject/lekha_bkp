@@ -1,0 +1,9 @@
+package com.wipro.lekhaclient.model;
+
+public class GNB {
+	
+	private int id;
+	
+	private String oru_id; 
+
+}

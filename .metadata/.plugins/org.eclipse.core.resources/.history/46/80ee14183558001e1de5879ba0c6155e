@@ -1,0 +1,49 @@
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.Response
+ 
+class HttpClient {
+ 
+    public static final MediaType JSON = MediaType.get("application/json; charset=utf-8")
+ 
+ 
+    public static Response doGetRequest(url, String apiKey = '') {
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+        Request request = setHeadersConfig(requestBuilder, apiKey).build();
+        Response response = getClient().newCall(request).execute()
+        return response.body().string();
+    }
+ 
+    public static String doPostRequest(String json, String url, String apiKey = '') {
+        RequestBody body = RequestBody.create(json, JSON)
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+                .post(body)
+        Request request = setHeadersConfig(requestBuilder, apiKey).build();
+        Response response = getClient().newCall(request).execute()
+        return response.body().string()
+    }
+ 
+    public static String doDeleteRequest(String json, String url, String apiKey = '') {
+        RequestBody body = RequestBody.create(json, JSON)
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+                .delete(body)
+        Request request = setHeadersConfig(requestBuilder, apiKey).build();
+        Response response = getClient().newCall(request).execute()
+        return response.body().string()
+    }
+ 
+    private static Request.Builder setHeadersConfig(Request.Builder requestBuilder, String apiKey) {
+        requestBuilder.header("Content-Type", "application/json")
+                .header("X-MBX-APIKEY", apiKey)
+        return requestBuilder
+    }
+ 
+    private static OkHttpClient getClient() {
+        return new OkHttpClient()
+    }
+}

@@ -1,0 +1,149 @@
+package com.wipro.lekhaclient.dao;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import com.wipro.lekhaclient.common.Core5GDetails;
+import com.wipro.lekhaclient.model.Node;
+import com.wipro.lekhaclient.utils.Util;
+
+public class NodeDAO implements DAOInterface<Node>{
+	private static final String INSERT_Node_QUERY = "INSERT INTO node VALUES";
+	private static final String VIEW_Node_QUERY = "SELECT * FROM node";
+	private static final String UPDATE_Node_QUERY = "UPDATE node SET plmn_id=?, node_id=?, tac=?, status=? where name=?";
+	private static final String DELETE_Node_QUERY = "DELETE from node where core_id = '" + Core5GDetails._5G_CORE_ID
+			+ "' and name=";
+
+	private static Connection connection = null;
+
+	public NodeDAO() {
+		connection = DAOConnection.create_connection();
+	}
+
+	@Override
+	public List<Node> getRecordByParam(Map<String, Object> paramMap) throws SQLException {
+		List<Node> nodes = new ArrayList<Node>();
+		try (Statement statement = connection.createStatement()) {
+			String param = Util.parseAndGetSqlParam(paramMap);
+			ResultSet resultSet = statement.executeQuery(VIEW_Node_QUERY + param);
+
+			while (resultSet.next()) {
+				Node node = new Node();
+				node.setOru_name(resultSet.getString(1));
+				node.setOru_id(resultSet.getInt(3));
+				node.getStatusinfo().setStatus((resultSet.getString(6)));
+				nodes.add(node);
+			}
+		} catch (SQLException e) {
+			connection.close();
+			System.out.println("Connection Closed while fetching node records");
+		}
+		return nodes;
+	}
+
+	@Override
+	public void insertRecords(List<Node> listOfData) throws SQLException {
+		for (Node data : listOfData) {
+			insertRecord(data);
+		}
+	}
+
+	@Override
+	public void insertRecord(Node data) throws SQLException {
+		try (Statement statement = connection.createStatement()) {
+			String queryParam = "('" + data.getOru_name() + "',"+ null +", " + data.getOru_id() + ", "
+					+ null + "," + " '" + data.getNodeInterfaceInfo().getIpAddress() + "', '" + data.getStatusinfo().getStatus() + "','"
+					+ Core5GDetails._5G_CORE_ID + "')";
+
+			int res = statement.executeUpdate(INSERT_Node_QUERY + queryParam);
+			if (res != 0) {
+				// System.out.println("node id ----:" + data.getGnb_id() + " successfully
+				// polled.!");
+			}
+		} catch (SQLException e) {
+			connection.close();
+			System.out.println("Connection Closed while inserting node records");
+		}
+
+	}
+
+	@Override
+	public void updateRecord(Node data) throws SQLException {
+		{
+			try {
+				PreparedStatement preparedStmt = connection.prepareStatement(UPDATE_Node_QUERY);
+				preparedStmt.setInt(2, data.getOru_id());
+				preparedStmt.setString(4, data.getStatusinfo().getStatus());
+				preparedStmt.setString(5, data.getOru_name());
+				int res = preparedStmt.executeUpdate();
+				if (res != 0) {
+					// System.out.println("node ----:" + data.getName() + " successfully updated.!");
+				}
+			} catch (SQLException e) {
+				connection.close();
+				System.out.println("Connection Closed while updating node records");
+			}
+		}
+	}
+
+	@Override
+	public void deleteRecords(List<String> params) throws SQLException {
+		try (Statement statement = connection.createStatement()) {
+			for (String param : params) {
+				statement.executeUpdate(DELETE_Node_QUERY + "'" + param + "'");
+			}
+		} catch (SQLException e) {
+			connection.close();
+		}
+	}
+
+	@Override
+	public void updateOrInsertRecords(List<Node> listOfData) throws SQLException {
+		if (listOfData == null || listOfData.isEmpty())
+			return;
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("core_id", Core5GDetails._5G_CORE_ID);
+		List<Node> existingNodes = getRecordByParam(paramMap);
+
+		if (existingNodes.isEmpty()) {
+			insertRecords(listOfData);
+		} else {
+
+			List<String> existingNodeIds = existingNodes.stream().map(node -> node.getOru_id()).map(p->p.toString())
+					.collect(Collectors.toList());
+			List<String> currentNodeIds = listOfData.stream().map(node -> node.getOru_id()).map(p->p.toString()).collect(Collectors.toList());
+
+			List<String> deleteNodes = existingNodeIds.stream().filter(i -> !currentNodeIds.contains(i))
+					.collect(Collectors.toList());
+			deleteRecords(deleteNodes);
+			List<Node> insertNodes = listOfData.stream().filter(i -> !existingNodeIds.contains(i.getOru_id()))
+					.collect(Collectors.toList());
+			insertRecords(insertNodes);
+
+			for (Node curr_node : listOfData) {
+				for (Node ext_node : existingNodes) {
+					if (curr_node.getOru_id() == ext_node.getOru_id()) {
+						String status = curr_node.getStatusinfo().getStatus();
+						if (!status.equals(ext_node.getStatusinfo().getStatus()))
+							updateRecord(curr_node);
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public void pollRecords(List<Node> listOfData) throws SQLException, InterruptedException {
+		updateOrInsertRecords(listOfData);
+		System.out.println("Node records are polling..");
+	}
+
+	public static void main(String[] args) throws SQLException, InterruptedException {
+		new NodeDAO().pollRecords(null);
+	}
+}

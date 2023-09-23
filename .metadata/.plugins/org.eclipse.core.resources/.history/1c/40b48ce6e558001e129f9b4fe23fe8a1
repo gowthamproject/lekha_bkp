@@ -1,0 +1,13 @@
+package com.wipro.lekhaclient;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class LekhaclientApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(LekhaclientApplication.class, args);
+	}
+
+}

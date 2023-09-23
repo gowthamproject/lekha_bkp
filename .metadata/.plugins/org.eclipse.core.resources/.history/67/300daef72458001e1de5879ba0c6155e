@@ -1,0 +1,17 @@
+package com.wipro.lekhaclient.model;
+
+import java.util.List;
+
+public class AlarmInfoList {
+	
+	private List<AlarmInfo> alarmInfoList;
+
+	public List<AlarmInfo> getAlarmInfoList() {
+		return alarmInfoList;
+	}
+
+	public void setAlarmInfoList(List<AlarmInfo> alarmInfoList) {
+		this.alarmInfoList = alarmInfoList;
+	}
+
+}

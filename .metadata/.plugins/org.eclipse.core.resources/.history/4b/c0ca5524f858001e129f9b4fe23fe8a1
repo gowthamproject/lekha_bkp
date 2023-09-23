@@ -1,0 +1,62 @@
+package com.wipro.lekhaclient.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import com.wipro.lekhaclient.common.Core5GDetails;
+import com.wipro.lekhaclient.model.Location;
+
+
+public class LocationDAO implements DAOInterface<Location>{
+	
+	private static final String INSERT_LOCATION_QUERY = "INSERT INTO location VALUES";
+	private static final String VIEW_LOCATION_QUERY = "SELECT * FROM location";
+	private static final String UPDATE_LOCATION_QUERY = "UPDATE gnb SET plmn_id=?, gnb_id=?, tac=?, status=? where name=?";
+	private static final String DELETE_LOCATION_QUERY = "DELETE from location where core_id = '" + Core5GDetails._5G_CORE_ID
+			+ "' and name=";
+
+	@Override
+	public void insertRecords(List<Location> listOfData) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertRecord(Location data) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateRecord(Location data) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Location> getRecordByParam(Map<String, Object> paramMap) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteRecords(List<String> params) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateOrInsertRecords(List<Location> listOfData) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pollRecords(List<Location> listOfData) throws SQLException, InterruptedException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+}

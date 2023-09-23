@@ -1,0 +1,40 @@
+package com.wipro.lekhaclient.services;
+
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+
+import com.wipro.lekhaclient.certificate.Certificate;
+import com.wipro.lekhaclient.common.Constants;
+import com.wipro.lekhaclient.model.Node;
+import com.wipro.lekhaclient.model.Region;
+import com.wipro.lekhaclient.utils.Util;
+
+public class NodesServices extends LekhaService{
+	
+	@SuppressWarnings("unchecked")
+	public void pull_GNBDetailsFromRaemisAPI() throws Exception {
+
+		Certificate.doTrustToCertificates();
+		String responseJson = super.pullData(Constants.GNB_URL);
+		// System.out.println("GNB RESPONSE ----: " + responseJson);
+		if (responseJson != null && !responseJson.isEmpty())
+			new NodeDAO().pollRecords((List<Node>) Util.parseJsonStrToObject(responseJson, Constants.GNB));
+	}
+	
+	
+	public String getAllRegions() throws KeyManagementException, NoSuchAlgorithmException {
+		Certificate.doTrustToCertificates();
+		String responseJson = null;
+		try {
+			responseJson = super.pullData(Constants.GET_ALL_REGIONS_URL);
+			// System.out.println("GNB RESPONSE ----: " + responseJson);
+			List<Region> regions =  (List<Region>)Util.parseJsonStrToObject(responseJson, Constants.REGIONS);
+		} catch (IOException e) {
+			System.out.println("Exception occur while pulling all regions from lekha server");
+		}
+		return responseJson;
+	}
+
+}

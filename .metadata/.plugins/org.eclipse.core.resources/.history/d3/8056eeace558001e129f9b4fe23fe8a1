@@ -1,0 +1,9 @@
+package com.wipro.lekhaclient.model;
+
+public class NodeInterfaceInfo {
+	
+	private String ipAddress;
+
+	
+
+}

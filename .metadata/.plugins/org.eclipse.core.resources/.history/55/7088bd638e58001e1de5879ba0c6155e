@@ -1,0 +1,9 @@
+package com.wipro.lekhaclient.services;
+
+import com.wipro.lekhaclient.model.LocationDetails;
+
+public interface LocationIntf {
+	
+	public void pollLocationDetails(LocationDetails data );
+
+}

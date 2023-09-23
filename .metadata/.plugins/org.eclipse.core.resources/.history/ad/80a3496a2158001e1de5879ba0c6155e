@@ -1,0 +1,9 @@
+package com.wipro.lekhaclient.model;
+
+import java.util.List;
+
+public class AlarmInfoList {
+	
+	private List<AlarmInfo> alarmInfoList;
+
+}

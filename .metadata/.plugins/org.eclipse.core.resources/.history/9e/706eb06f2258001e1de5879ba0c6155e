@@ -1,0 +1,97 @@
+package com.wipro.lekhaclient.model;
+
+public class Alarm {
+	
+	private String node_id;
+		
+	private String alarm_id;
+	
+	private String alarm_type;
+	
+	private String alarm_name;
+	
+	private String alarm_cause;
+	
+	private String alarm_severity;
+	
+	private String alarm_occurance_time;
+	
+	private String corrective_action;
+	
+	private String alarm_state;
+
+	public String getNode_id() {
+		return node_id;
+	}
+
+	public void setNode_id(String node_id) {
+		this.node_id = node_id;
+	}
+
+	public String getAlarm_id() {
+		return alarm_id;
+	}
+
+	public void setAlarm_id(String alarm_id) {
+		this.alarm_id = alarm_id;
+	}
+
+	public String getAlarm_type() {
+		return alarm_type;
+	}
+
+	public void setAlarm_type(String alarm_type) {
+		this.alarm_type = alarm_type;
+	}
+
+	public String getAlarm_name() {
+		return alarm_name;
+	}
+
+	public void setAlarm_name(String alarm_name) {
+		this.alarm_name = alarm_name;
+	}
+
+	public String getAlarm_cause() {
+		return alarm_cause;
+	}
+
+	public void setAlarm_cause(String alarm_cause) {
+		this.alarm_cause = alarm_cause;
+	}
+
+	public String getAlarm_severity() {
+		return alarm_severity;
+	}
+
+	public void setAlarm_severity(String alarm_severity) {
+		this.alarm_severity = alarm_severity;
+	}
+
+	public String getAlarm_occurance_time() {
+		return alarm_occurance_time;
+	}
+
+	public void setAlarm_occurance_time(String alarm_occurance_time) {
+		this.alarm_occurance_time = alarm_occurance_time;
+	}
+
+	public String getCorrective_action() {
+		return corrective_action;
+	}
+
+	public void setCorrective_action(String corrective_action) {
+		this.corrective_action = corrective_action;
+	}
+
+	public String getAlarm_state() {
+		return alarm_state;
+	}
+
+	public void setAlarm_state(String alarm_state) {
+		this.alarm_state = alarm_state;
+	}
+	
+	public Alarm() {}
+
+}

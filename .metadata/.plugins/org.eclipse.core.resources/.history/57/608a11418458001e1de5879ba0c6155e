@@ -1,0 +1,23 @@
+package com.wipro.lekhaclient.services;
+
+import java.util.List;
+
+import com.wipro.lekhaclient.certificate.Certificate;
+import com.wipro.lekhaclient.common.Constants;
+import com.wipro.lekhaclient.dao.GNBDAO;
+import com.wipro.lekhaclient.model.Node;
+import com.wipro.lekhaclient.utils.Util;
+
+public class NodesServices extends LekhaService{
+	
+	@SuppressWarnings("unchecked")
+	public void pull_GNBDetailsFromRaemisAPI() throws Exception {
+
+		Certificate.doTrustToCertificates();
+		String responseJson = super.pullData(Constants.GNB_URL);
+		// System.out.println("GNB RESPONSE ----: " + responseJson);
+		if (responseJson != null && !responseJson.isEmpty())
+			new GNBDAO().pollRecords((List<Node>) Util.parseJsonStrToObject(responseJson, Constants.GNB));
+	}
+
+}

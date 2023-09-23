@@ -1,0 +1,79 @@
+package com.wipro.lekhaclient.test;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.wipro.lekhaclient.common.Constants;
+import com.wipro.lekhaclient.dao.AlarmDAO;
+import com.wipro.lekhaclient.dao.NodeDAO;
+import com.wipro.lekhaclient.model.Alarm;
+import com.wipro.lekhaclient.model.AlarmInfo;
+import com.wipro.lekhaclient.model.Node;
+import com.wipro.lekhaclient.model.Nodes;
+import com.wipro.lekhaclient.model.Region;
+import com.wipro.lekhaclient.services.AlarmService;
+import com.wipro.lekhaclient.utils.Util;
+
+import okhttp3.HttpUrl;
+import okhttp3.Request;
+
+public class AlarmDetailsData {
+
+	public static final String ALARM_DATA = "[{'region_id' : 1, " + "'alarmInfo':[" + "{" + "'node_id' : 251, "
+			+ "'alarm_id':'1111', " + "'alarm_name':'alarmName', " + "'alarm_type':'alarmType',"
+			+ "'alarm_cause':'alarmCause', " + "'alarm_severity':'Critical', " + "'alarm_occurance_time':'2023-09-15T17:02:20+0530', "
+			+ "'corrective_action':'CA', " + "'alarm_state':'New'" + "}" + "]" + "}" + "]";
+
+	public static final String NODE_DATA = "{ 'id':19,'oru_id':205,'oru_name':'o-rutest1205','siteName':'LekhaHQ','region_id':1,'transactionId':1001,'timeStamp':'2023-09-20T12:08:21+0530','sourceName':'EMS','nodeinterfaceinfo':{'ipAddress':'192.168.9.201'},'statusinfo':{'status':'Disconnected'},'location':{'latitude':12.9155,'longitude':77.5859}}";
+
+	public static final String NODES_DATA = "{'oru_list':[205,250,251]}";
+	
+	public static final String REGIONS_DATA = "[{'id': 1,'name': 'Karnataka'}]";
+
+	public static void main(String[] args) {
+		
+		/*
+		 * AlarmService als = new AlarmService(); try {
+		 * als.pull_AlarmDetailsFromLekhaAPI(); } catch (Exception e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
+		 * 
+		 */
+		HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.SESSION_URL).newBuilder();
+		urlBuilder.addQueryParameter("v", "1.0");
+		urlBuilder.addQueryParameter("user", "vogella");
+		String url = urlBuilder.build().toString();
+
+		Request request = new Request.Builder().url(url).build();
+
+		List<AlarmInfo> alarms = Arrays
+				.asList(new Gson().fromJson(ALARM_DATA, AlarmInfo[].class));
+
+		Node node = new Gson().fromJson(NODE_DATA, Node.class);
+
+		Nodes nodes = new Gson().fromJson(NODES_DATA, Nodes.class);
+		
+		List<Region> regions =  Arrays.asList(new Gson().fromJson(REGIONS_DATA, Region[].class));
+
+		List<Alarm> alarmList = alarms.get(0).getAlarmInfo();
+		
+		alarmList.forEach(p->p.setRegion_Id(1));
+		
+		for(Alarm al : alarmList) {
+			al.setAlarm_occurance_time(Util.parseDate(al.getAlarm_occurance_time()));
+		}
+		List<Node> nodeList = new ArrayList<Node>();
+		nodeList.add(node);
+
+		try {
+			//new AlarmDAO().pollRecords(alarmList);
+			new NodeDAO().pollRecords(nodeList);
+		} catch (SQLException | InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(nodes);
+	}
+}

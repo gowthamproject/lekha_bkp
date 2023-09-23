@@ -1,0 +1,11 @@
+package com.wipro.lekhaclient.model;
+
+import java.util.List;
+
+public class AlarmInfo {
+	
+	private String region_id;
+	
+	private List<Alarm> alarmInfo;
+
+}

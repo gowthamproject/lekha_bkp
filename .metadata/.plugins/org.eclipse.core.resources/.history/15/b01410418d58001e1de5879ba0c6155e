@@ -1,0 +1,39 @@
+package com.wipro.lekhaclient.services;
+
+import com.wipro.lekhaclient.certificate.Certificate;
+import com.wipro.lekhaclient.common.Constants;
+import com.wipro.lekhaclient.dao.AlarmDAO;
+import com.wipro.lekhaclient.model.Alarm;
+import com.wipro.lekhaclient.model.AlarmInfo;
+import com.wipro.lekhaclient.model.Nodes;
+import com.wipro.lekhaclient.model.Region;
+import com.wipro.lekhaclient.utils.Util;
+
+import java.util.List;
+import java.util.Map;
+
+public class AlarmService extends NodeService implements PollRecords<List<Alarm>>{
+		
+	@SuppressWarnings("unchecked")
+	public void pull_AlarmDetailsFromLekhaAPI() throws Exception {
+		Certificate.doTrustToCertificates();
+		Map<Region, List<Nodes>> nodeMapByRegion = getNodeMapByRegion();
+		for (Region region : nodeMapByRegion.keySet()) {
+			int region_id = region.getId();
+			List<Nodes> nodes = nodeMapByRegion.get(region);
+			for (Nodes node : nodes) {
+				List<Integer> nodeIds = node.getOru_list();
+				for (Integer nodeId : nodeIds) {
+					String responseJson = super.pullData(
+							Constants.LEKHA_ENDPOINT + "/nms/events/" + region_id + "/" + nodeId);
+					if (responseJson != null && !responseJson.isEmpty()) {
+						List<AlarmInfo> alarms = (List<AlarmInfo>) Util.parseJsonStrToObject(responseJson, Constants.ALARM_INFO);
+						List<Alarm> alarmList = (List<Alarm>) alarms.stream().map(p->p.getAlarmInfo());
+						alarmList.forEach(p->p.setRegion_Id(region_id));
+						new AlarmDAO().pollRecords(alarmList);
+					}
+				}
+			}
+		}
+	}
+}

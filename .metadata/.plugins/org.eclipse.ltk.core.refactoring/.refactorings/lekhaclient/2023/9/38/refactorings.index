@@ -1,0 +1,24 @@
+1695232959862	Rename type 'RaemisService'
+1695234534185	Encapsulate field 'node_type'
+1695260278471	Encapsulate field 'oru_list'
+1695260409280	Encapsulate field 'region_list'
+1695260656148	Encapsulate field 'status'
+1695260736086	Encapsulate field 'nodeinterfaceinfo'
+1695261103550	Encapsulate field 'alarmInfoList'
+1695261618070	Delete element
+1695261652703	Delete element
+1695261693769	Copy package
+1695261698481	Delete element
+1695262629255	Delete element
+1695262753597	Delete element
+1695262956251	Rename type 'GNB'
+1695283523984	Rename compilation unit 'Location.java'
+1695303583548	Rename type 'GNBDAO'
+1695303948154	Rename type 'NodesServices'
+1695304839925	Rename type 'GNBService'
+1695306508040	Encapsulate field 'region_Id'
+1695308165953	Delete element
+1695308875494	Delete element
+1695308881333	Delete element
+1695345396742	Encapsulate field 'ipAddress'
+1695471778520	Delete element

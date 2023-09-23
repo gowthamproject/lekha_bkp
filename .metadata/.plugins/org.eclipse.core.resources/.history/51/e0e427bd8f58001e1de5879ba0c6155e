@@ -1,0 +1,13 @@
+package com.wipro.lekhaclient.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import com.wipro.lekhaclient.model.Location;
+
+
+public class LocationDAO implements DAOInterface<Location>{
+
+	
+}

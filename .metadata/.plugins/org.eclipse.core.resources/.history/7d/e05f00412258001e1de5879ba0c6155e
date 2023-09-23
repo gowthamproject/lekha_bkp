@@ -1,0 +1,25 @@
+package com.wipro.lekhaclient.model;
+
+import java.util.Date;
+
+public class GNB {
+	
+	private int id;
+	
+	private String oru_id; 
+	
+	private String oru_name;
+	
+	private String siteName;
+	
+	private int region_id;
+	
+	private int transactionId;
+	
+	private Date timeStamp;
+	
+	private String sourceName;
+	
+	private NodeInterfaceInfo nodeInterfaceInfo;
+
+}

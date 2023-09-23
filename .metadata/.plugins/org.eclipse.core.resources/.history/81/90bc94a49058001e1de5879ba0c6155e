@@ -1,0 +1,9 @@
+package com.wipro.lekhaclient.services;
+
+import java.sql.SQLException;
+
+public interface PollRecords<T> {
+	
+	public void pollRecords(T data) throws SQLException, InterruptedException;
+
+}

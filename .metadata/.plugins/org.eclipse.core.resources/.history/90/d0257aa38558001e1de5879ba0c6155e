@@ -1,0 +1,43 @@
+package com.wipro.lekhaclient.services;
+
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+
+import com.wipro.lekhaclient.certificate.Certificate;
+import com.wipro.lekhaclient.common.Constants;
+import com.wipro.lekhaclient.model.Region;
+import com.wipro.lekhaclient.utils.Util;
+
+public class BaseServices extends LekhaService{
+	
+	
+	public List<Region> getAllRegions() throws KeyManagementException, NoSuchAlgorithmException {
+		Certificate.doTrustToCertificates();
+		List<Region> regions = null;
+		try {
+			String responseJson = super.pullData(Constants.GET_ALL_REGIONS_URL);
+			// System.out.println("GNB RESPONSE ----: " + responseJson);
+			regions =  (List<Region>)Util.parseJsonStrToObject(responseJson, Constants.REGIONS);
+		} catch (IOException e) {
+			System.out.println("Exception occur while pulling all regions from lekha server");
+		}
+		return regions;
+	}
+	
+	public List<Region> getAllRegions() throws KeyManagementException, NoSuchAlgorithmException {
+		Certificate.doTrustToCertificates();
+		List<Region> regions = null;
+		try {
+			String responseJson = super.pullData(Constants.GET_ALL_REGIONS_URL);
+			// System.out.println("GNB RESPONSE ----: " + responseJson);
+			regions =  (List<Region>)Util.parseJsonStrToObject(responseJson, Constants.REGIONS);
+		} catch (IOException e) {
+			System.out.println("Exception occur while pulling all regions from lekha server");
+		}
+		return regions;
+	}
+	
+
+}

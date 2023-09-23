@@ -1,0 +1,23 @@
+package com.wipro.lekhaclient.model;
+
+public class Alarm {
+
+	private int oru_id;
+	
+	private String alarm_id;
+	
+	private String alarm_type;
+	
+	private String alarm_name;
+	
+	private String alarm_cause;
+	
+	private String alarm_severity;
+	
+	private String alarm_occurance_time;
+	
+	private String corrective_action;
+	
+	private String alarm_state;
+	
+}
