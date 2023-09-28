@@ -62,7 +62,7 @@ public class LocationDAO implements DAOInterface<Location> {
 	public void insertRecord(Location data) throws SQLException {
 		try (Statement statement = connection.createStatement()) {
 			String queryParam = "('" + Core5GDetails._5G_CORE_ID + "'," + data.getOru_id() + ", '" + data.getOru_name()
-					+ "', " + data.getLatitude() + ", " + data.getLongitude() + ", '"+data.getRegion_state()+"')";
+					+ "', " + data.getLatitude() + ", " + data.getLongitude() + ", '" + data.getRegion_state() + "')";
 			int res = statement.executeUpdate(INSERT_LOCATION_QUERY + queryParam);
 			if (res != 0) {
 				// System.out.println("location id ----:" + data.getGnb_id() + " successfully
@@ -72,7 +72,6 @@ public class LocationDAO implements DAOInterface<Location> {
 			connection.close();
 			System.out.println("Connection Closed while inserting location records");
 		}
-
 	}
 
 	@Override
@@ -128,8 +127,8 @@ public class LocationDAO implements DAOInterface<Location> {
 			List<String> deleteLocations = existinggNBIds.stream().filter(i -> !currentgNBIds.contains(i))
 					.collect(Collectors.toList());
 			// deleteRecords(deleteLocations);
-			List<Location> insertLocations = listOfData.stream()
-					.filter(i -> !existinggNBIds.contains(i.getOru_id())).collect(Collectors.toList());
+			List<Location> insertLocations = listOfData.stream().filter(i -> !existinggNBIds.contains(i.getOru_id()))
+					.collect(Collectors.toList());
 			insertRecords(insertLocations);
 
 			for (Location curr_location : listOfData) {
